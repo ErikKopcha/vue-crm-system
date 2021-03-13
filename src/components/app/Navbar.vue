@@ -7,7 +7,7 @@
             >read_more</i
           >
         </a>
-        <span class="black-text">{{ date }} {{ time }}</span>
+        <span class="black-text">{{ date | date('date') }} {{ time | time('time') }}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
@@ -16,6 +16,7 @@
             class="dropdown-trigger black-text"
             href="#"
             data-target="dropdown"
+            ref="dropdownTrigger"
           >
             USER NAME
             <i class="material-icons right">arrow_drop_down</i>
@@ -23,13 +24,13 @@
 
           <ul id="dropdown" class="dropdown-content">
             <li>
-              <a href="#" class="black-text">
+              <router-link to="/profile" class="black-text">
                 <i class="material-icons">account_circle</i>Профиль
-              </a>
+              </router-link>
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
-              <a href="#" class="black-text">
+              <a href="#" class="black-text" @click.prevent="logout">
                 <i class="material-icons">assignment_return</i>Выйти
               </a>
             </li>
@@ -46,34 +47,34 @@ export default {
   name: "Navbar",
   data: () => {
     return {
-      time: null,
-      date: null
+      time: new Date(),
+      date: new Date(),
+      interval: null,
+      dropdown: null
     };
   },
   mounted() {
-    this.getDate();
-    this.getTime();
+    this.timeInterval();
+
+    // eslint-disable-next-line no-undef
+    this.dropdown = M.Dropdown.init(this.$refs.dropdownTrigger, {
+      constrainWidth: true
+    });
+  },
+  beforeDestroy() {
+    clearInterval(this.interval);
+    if (this.dropdown && this.dropdown.destroy) {
+      this.dropdown.destroy();
+    }
   },
   methods: {
+    logout() {
+      this.$router.push("/login?message=logout");
+    },
     timeInterval() {
-      setInterval(this.getTime, 1000);
-    },
-    getDate() {
-      let date = new Date(),
-        fullYear = date.getFullYear(),
-        month = date.getMonth() + 1,
-        day = date.getDate();
-
-      this.date = `${day}.${month}.${fullYear}`;
-    },
-    getTime() {
-      let date = new Date(),
-        hours = date.getHours(),
-        minutes = date.getMinutes(),
-        seconds = date.getSeconds();
-
-      this.time = `${hours}:${minutes}:${seconds > 9 ? "" : "0"}${seconds}`;
-      this.timeInterval();
+      this.interval = setInterval(() => {
+        this.time = new Date();
+      }, 1000);
     }
   }
 };
@@ -87,5 +88,9 @@ export default {
 
 .nav-icon.open {
   transform: rotate(-180deg);
+}
+
+.dropdown-content {
+  top: 65px !important;
 }
 </style>
