@@ -4,10 +4,13 @@
       <div class="navbar-left">
         <a href="#" @click.prevent="$emit('toggleSidebar')">
           <i class="material-icons black-text nav-icon" :class="{ open: value }"
-            >read_more</i
+            >arrow_forward</i
           >
         </a>
-        <span class="black-text">{{ date | date('date') }} {{ time | time('time') }}</span>
+
+        <span class="black-text"
+          >{{ date | date("date") }} {{ time | time("time") }}</span
+        >
       </div>
 
       <ul class="right hide-on-small-and-down">
@@ -82,6 +85,13 @@ export default {
 
 <style scoped>
 .nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #ffcd71;
+  border-radius: 50%;
   font-size: 26px;
   transition: all 0.4s ease;
 }
