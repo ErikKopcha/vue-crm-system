@@ -1,5 +1,3 @@
-# Vue CRM System
-
 ## Project setup
 ```
 npm install
