@@ -2,16 +2,6 @@
   <nav class="navbar orange lighten-1">
     <div class="nav-wrapper">
       <div class="navbar-left">
-        <div class="wrap" @click.prevent="$emit('toggleSidebar')">
-          <div class="wrap__card" :class="{ open: value }">
-            <i class="material-icons black-text nav-icon wrap__front waves-effect"
-              >format_indent_increase
-            </i>
-            <i class="material-icons black-text nav-icon wrap__back waves-effect">
-              format_indent_decrease
-            </i>
-          </div>
-        </div>
         <span class="black-text">{{ date | date("date") }}</span>
         <span class="new badge waves-effect waves-light cursor-unset">
            {{ time | time("time") }}
@@ -95,53 +85,5 @@ span.badge.new:after {
 
 .dropdown-content {
   top: 65px !important;
-}
-
-/* flip */
-.wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  margin-right: 20px;
-}
-
-.wrap__card {
-  width: 40px;
-  height: 40px;
-  position: relative;
-  perspective: 1000px;
-}
-
-.wrap__front,
-.wrap__back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 1s;
-  backface-visibility: hidden;
-  border-radius: 10px;
-}
-
-.wrap__front {
-  background-color: rgb(255 193 101);
-}
-
-.wrap__back {
-  background-color: rgb(255 193 101);
-  transform: rotateY(180deg);
-}
-
-.wrap__card.open .wrap__front {
-  transform: rotateY(180deg);
-}
-
-.wrap__card.open .wrap__back {
-  transform: rotateY(360deg);
 }
 </style>

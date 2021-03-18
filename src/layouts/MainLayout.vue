@@ -1,8 +1,8 @@
 <template>
   <div class="app-main-layout">
-    <Navbar @toggleSidebar="isOpen = !isOpen" v-model="isOpen" />
+    <Navbar v-model="isOpen" />
 
-    <Sidebar v-model="isOpen" />
+    <Sidebar @toggleSidebar="isOpen = !isOpen" v-model="isOpen" />
 
     <main class="app-content" :class="{ full: !isOpen }">
       <div class="app-page">

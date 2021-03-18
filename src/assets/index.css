@@ -8,10 +8,14 @@
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  padding-top: 5rem;
   height: 100vh;
 }
 .auth-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   width: 500px;
 }
 .auth-submit {
@@ -28,18 +32,18 @@
   min-height: 100vh;
 }
 .app-sidenav {
-  padding-top: 5px;
-  position: absolute;
-  top: 64px;
-  width: 250px;
-  transition: transform 0.3s;
-  transition: transform 0.3s, -webkit-transform 0.3s;
-  bottom: 0 !important;
-  height: auto !important;
+  padding-top: 64px;
+  width: 70px;
+  transition: width 0.5s;
+  height: 100vh;
+  will-change: width;
+  transform: translateX(0);
+}
+.app-sidenav li>a {
+  padding: 0 15px;
 }
 .app-sidenav.open {
-  -webkit-transform: translateX(0);
-  transform: translateX(0);
+  width: 250px;
 }
 .navbar {
   position: absolute;
@@ -70,11 +74,11 @@
 .app-content {
   padding-top: 64px;
   padding-left: 250px;
-  transition: padding-left 0.3s;
+  transition: padding-left 0.5s;
   position: relative;
 }
 .app-content.full {
-  padding-left: 0;
+  padding-left: 70px;
 }
 .page-title {
   -webkit-justify-content: space-between;
@@ -160,4 +164,8 @@
 }
 .cursor-unset {
     cursor: unset !important;
+}
+
+.ta-c {
+  text-align: center;
 }
