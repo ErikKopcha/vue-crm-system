@@ -2,7 +2,7 @@
   <div class="app-main-layout">
     <Navbar v-model="isOpen" />
 
-    <Sidebar @toggleSidebar="isOpen = !isOpen" v-model="isOpen" />
+    <Sidebar @toggleSidebar="toggleSidebarHandl" v-model="isOpen" />
 
     <main class="app-content" :class="{ full: !isOpen }">
       <div class="app-page">
@@ -25,11 +25,17 @@ import Sidebar from "@/components/app/Sidebar";
 export default {
   name: "MainLayout",
   data: () => ({
-    isOpen: true
+    isOpen: localStorage.getItem('sidebar') == 'true' ? true : false
   }),
   components: {
     Navbar,
     Sidebar
+  },
+  methods: {
+    toggleSidebarHandl() {
+      this.isOpen = !this.isOpen;
+      localStorage.setItem('sidebar', this.isOpen);
+    }
   }
 };
 </script>

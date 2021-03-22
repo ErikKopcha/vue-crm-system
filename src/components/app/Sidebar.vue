@@ -19,7 +19,12 @@
       tag="li"
       active-class="active"
     >
-      <p class="route-wrapper"><a href="#" :class="{open: value}" class="waves-effect waves-orange pointer"><span>{{ link.title }}</span><i class="material-icons">{{ link.icon }}</i></a></p>
+      <p class="route-wrapper">
+        <a href="#" :class="{open: value}" class="waves-effect waves-orange pointer">
+          <i class="material-icons">{{ link.icon }}</i>
+          <span>{{ link.title }}</span>
+        </a>
+      </p>
     </router-link>
   </ul>
 </template>
@@ -30,11 +35,11 @@ export default {
   props: ["value"],
   data: () => ({
     links: [
-      { title: "Счет", url: "/", exact: true, icon: 'account_balance_wallet' },
-      { title: "История", url: "/history" },
-      { title: "Планирование", url: "/planning" },
-      { title: "Новая запись", url: "/record" },
-      { title: "Категории", url: "/categories" }
+      { title: "Score", url: "/", exact: true, icon: 'account_balance_wallet' },
+      { title: "Story", url: "/history", icon: 'featured_play_list'},
+      { title: "Planning", url: "/planning", icon: 'event_note' },
+      { title: "New entry", url: "/record", icon: 'add_to_photos' },
+      { title: "Categories", url: "/categories", icon: 'book' }
     ]
   })
 };
@@ -93,42 +98,38 @@ export default {
 }
 
 li a {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
   margin: 0 auto;
   padding: 0 15px;
-  width: 100%;
   transition: all 0.5s;
+}
+
+li a.open {
+  padding: 0 60px;
 }
 
 li a span {
-  transform-origin: left center;
+  white-space: nowrap;
   transition: all 0.5s;
-  transform: scale(0);
-  font-size: 0;
+  transform: translateX(80px);
+  color: black;
 }
 
 li a.open span {
-  transform: scale(1);
-  font-size: unset;
-  padding-right: 10px;
+  transform: translateX(0);
 }
 
 li a i {
   transition: all 0.5s;
-  transform: scale(1);
+  transform: translateX(8px);
+  margin-right: 5px;
   font-size: 25px;
 }
 
 li a.open i {
-  transform: scale(0);
-  font-size: unset;
-  padding-right: 10px;
+  transform: translateX(0);
 }
 
-.route-wrapper {
-  display: flex;
-  align-items: center;
-}
 </style>
