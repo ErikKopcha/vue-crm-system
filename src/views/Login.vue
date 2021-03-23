@@ -32,14 +32,14 @@
     <div class="card-action">
       <div>
         <button class="btn waves-effect waves-light auth-submit" type="submit">
-          Войти
+          Login
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Нет аккаунта?
-        <router-link to="/register">Зарегистрироваться</router-link>
+        No account?
+        <router-link to="/register">Register</router-link>
       </p>
     </div>
   </form>
@@ -60,7 +60,7 @@ export default {
     password: { required, minLength: minLength(6) }
   },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch();
         return;
@@ -71,9 +71,10 @@ export default {
         password: this.password
       };
 
-      console.log(formData);
-
-      this.$router.push("/");
+      try {
+        await this.$store.dispatch('login', formData);
+        this.$router.push("/");
+      } catch (e) {console.log(e);}
     }
   }
 };
