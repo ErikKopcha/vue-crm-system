@@ -1,25 +1,54 @@
 <template>
-  <form class="card auth-card">
+  <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
       <span class="card-title">Домашняя бухгалтерия</span>
       <div class="input-field">
-        <input id="email" type="text" />
+        <input id="email" type="text"
+          v-model="email"
+          :class="{
+            invalid: ($v.email.$dirty && !$v.email.email) || ($v.email.$dirty && !$v.email.required)
+          }"/>
         <label for="email">Email</label>
-        <small class="helper-text invalid">Email</small>
+        <small class="helper-text invalid"
+          v-if="$v.email.$dirty && !$v.email.email">
+          Please enter a valid email
+        </small>
+        <small class="helper-text invalid"
+          v-else-if="$v.email.$dirty && !$v.email.required">
+          Enter your email
+        </small>
       </div>
       <div class="input-field">
-        <input id="password" type="password" class="validate" />
-        <label for="password">Пароль</label>
-        <small class="helper-text invalid">Password</small>
+        <input id="password" type="password"
+          v-model="password"
+          :class="{
+            invalid:($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)
+          }"
+        />
+        <label for="password">Password</label>
+        <small class="helper-text invalid"
+          v-if="$v.password.$dirty && !$v.password.required">
+          Enter the correct password</small>
+        <small class="helper-text invalid"
+          v-else-if="$v.password.$dirty && !$v.password.minLength">
+          Password must be {{ $v.password.$params.minLength.min }} characters long. Now - {{ password.length }}
+        </small>
       </div>
       <div class="input-field">
-        <input id="name" type="text" class="validate" />
+        <input id="name" type="text" class="validate"
+          :class="{ invalid: !$v.name.required && $v.name.$dirty }"
+          v-model="name"/>
         <label for="name">Имя</label>
-        <small class="helper-text invalid">Name</small>
+        <small class="helper-text invalid"
+          v-if="$v.name.$dirty && !$v.name.required">
+          Enter your name
+        </small>
       </div>
       <p>
         <label>
-          <input type="checkbox" />
+          <input type="checkbox"
+            v-model="agree"
+          />
           <span>С правилами согласен</span>
         </label>
       </p>
@@ -41,8 +70,42 @@
 </template>
 
 <script>
+import { email, required, minLength } from "vuelidate/lib/validators";
+
 export default {
-  name: "Register"
+  name: "Register",
+  data: () => {
+    return {
+      email: "",
+      password: "",
+      name: "",
+      agree: false
+    };
+  },
+  validations: {
+    email: { email, required },
+    password: { required, minLength: minLength(6) },
+    name: { required },
+    agree: { checked: v => v }
+  },
+  methods: {
+    submitHandler() {
+      if (this.$v.$invalid) {
+        this.$v.$touch();
+        return;
+      }
+
+      const formData = {
+        email: this.email,
+        password: this.password,
+        name: this.name
+      };
+
+      console.log(formData);
+
+      this.$router.push("/");
+    }
+  }
 };
 </script>
 
