@@ -3,52 +3,75 @@
     <div class="card-content">
       <span class="card-title ta-c">Wallet Management</span>
       <div class="input-field">
-        <input id="email" type="text"
+        <input
+          id="email"
+          type="text"
           v-model="email"
           :class="{
-            invalid: ($v.email.$dirty && !$v.email.email) || ($v.email.$dirty && !$v.email.required)
-          }"/>
+            invalid:
+              ($v.email.$dirty && !$v.email.email) ||
+              ($v.email.$dirty && !$v.email.required)
+          }"
+        />
         <label for="email">Email</label>
-        <small class="helper-text invalid"
-          v-if="$v.email.$dirty && !$v.email.email">
+        <small
+          class="helper-text invalid"
+          v-if="$v.email.$dirty && !$v.email.email"
+        >
           Please enter a valid email
         </small>
-        <small class="helper-text invalid"
-          v-else-if="$v.email.$dirty && !$v.email.required">
+        <small
+          class="helper-text invalid"
+          v-else-if="$v.email.$dirty && !$v.email.required"
+        >
           Enter your email
         </small>
       </div>
       <div class="input-field">
-        <input id="password" type="password"
+        <input
+          id="password"
+          type="password"
           v-model="password"
           :class="{
-            invalid:($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)
+            invalid:
+              ($v.password.$dirty && !$v.password.required) ||
+              ($v.password.$dirty && !$v.password.minLength)
           }"
         />
         <label for="password">Password</label>
-        <small class="helper-text invalid"
-          v-if="$v.password.$dirty && !$v.password.required">
-          Enter the correct password</small>
-        <small class="helper-text invalid"
-          v-else-if="$v.password.$dirty && !$v.password.minLength">
-          Password must be {{ $v.password.$params.minLength.min }} characters long. Now - {{ password.length }}
+        <small
+          class="helper-text invalid"
+          v-if="$v.password.$dirty && !$v.password.required"
+        >
+          Enter the correct password</small
+        >
+        <small
+          class="helper-text invalid"
+          v-else-if="$v.password.$dirty && !$v.password.minLength"
+        >
+          Password must be {{ $v.password.$params.minLength.min }} characters
+          long. Now - {{ password.length }}
         </small>
       </div>
       <div class="input-field">
-        <input id="name" type="text" class="validate"
+        <input
+          id="name"
+          type="text"
+          class="validate"
           :class="{ invalid: !$v.name.required && $v.name.$dirty }"
-          v-model="name"/>
+          v-model="name"
+        />
         <label for="name">Имя</label>
-        <small class="helper-text invalid"
-          v-if="$v.name.$dirty && !$v.name.required">
+        <small
+          class="helper-text invalid"
+          v-if="$v.name.$dirty && !$v.name.required"
+        >
           Enter your name
         </small>
       </div>
       <p>
         <label>
-          <input type="checkbox"
-            v-model="agree"
-          />
+          <input type="checkbox" v-model="agree" />
           <span>I agree with the rules</span>
         </label>
       </p>
@@ -89,7 +112,7 @@ export default {
     agree: { checked: v => v }
   },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch();
         return;
@@ -101,9 +124,12 @@ export default {
         name: this.name
       };
 
-      console.log(formData);
-
-      this.$router.push("/");
+      try {
+        await this.$store.dispatch("register", formData);
+        this.$router.push("/");
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };

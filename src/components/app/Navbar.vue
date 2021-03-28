@@ -51,9 +51,9 @@ export default {
       dropdown: null
     };
   },
-  mounted() {
+  mounted: function() {
     this.timeInterval();
-
+    
     // eslint-disable-next-line no-undef
     this.dropdown = M.Dropdown.init(this.$refs.dropdownTrigger, {
       constrainWidth: true
@@ -66,7 +66,8 @@ export default {
     }
   },
   methods: {
-    logout() {
+    async logout() {
+      await this.$store.dispatch('logout');
       this.$router.push("/login?message=logout");
     },
     timeInterval() {
