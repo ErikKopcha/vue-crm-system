@@ -36,7 +36,6 @@
           <i class="material-icons right">send</i>
         </button>
       </div>
-
       <p class="center">
         No account?
         <router-link to="/register">Register</router-link>
