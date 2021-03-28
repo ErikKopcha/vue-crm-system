@@ -2,9 +2,8 @@
   <nav class="navbar orange lighten-1">
     <div class="nav-wrapper">
       <div class="navbar-left">
-        <span class="black-text">{{ date | date("date") }}</span>
         <span class="new badge waves-effect waves-light cursor-unset">
-           {{ time | time("time") }}
+           {{ date | date("date") }} {{ time | time("time") }}
         </span>
       </div>
 
