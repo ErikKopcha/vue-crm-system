@@ -7,9 +7,6 @@ import dateFilter from "@/filters/date.filter";
 import timeFilter from "@/filters/time.filter";
 import "./registerServiceWorker";
 import "materialize-css/dist/js/materialize.min.js";
-// var toastHTML = '<span>I am toast content</span><button class="btn-flat toast-action">Undo</button>';
-// M.toast({html: toastHTML});
-
 import firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/database';

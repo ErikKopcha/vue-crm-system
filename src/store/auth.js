@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import M from 'materialize-css/dist/js/materialize.min'
 
 export default {
   actions: {
@@ -8,6 +9,7 @@ export default {
         console.log(commit);
         await firebase.auth().signInWithEmailAndPassword(email, password);
       } catch (e) {
+        M.toast({html: e});
         commit('setError', e);
         throw e;
       }
@@ -22,6 +24,7 @@ export default {
           name: name
         });
       } catch (e) {
+        M.toast({html: e});
         commit('setError', e);
         throw e;
       }
@@ -32,6 +35,7 @@ export default {
     },
     async logout() {
       await firebase.auth().signOut();
+      M.toast({html: 'You are logged out'});
     }
   }
 }
