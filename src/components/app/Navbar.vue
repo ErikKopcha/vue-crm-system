@@ -9,13 +9,11 @@
 
       <ul class="right hide-on-small-and-down">
         <li>
-          <a
-            class="dropdown-trigger black-text"
+          <a class="dropdown-trigger black-text"
             href="#"
             data-target="dropdown"
-            ref="dropdownTrigger"
-          >
-            USER NAME
+            ref="dropdownTrigger">
+            {{ name }}
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
@@ -44,6 +42,7 @@ export default {
   name: "Navbar",
   data: () => {
     return {
+      loading: true,
       time: new Date(),
       date: new Date(),
       interval: null,
@@ -62,6 +61,11 @@ export default {
     clearInterval(this.interval);
     if (this.dropdown && this.dropdown.destroy) {
       this.dropdown.destroy();
+    }
+  },
+  computed: {
+    name() {
+      return this.$store.getters.info.name
     }
   },
   methods: {

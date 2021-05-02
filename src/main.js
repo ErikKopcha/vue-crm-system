@@ -3,8 +3,10 @@ import Vuelidate from 'vuelidate';
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import Loader from '@/components/app/Loader';
 import dateFilter from "@/filters/date.filter";
 import timeFilter from "@/filters/time.filter";
+import currencyFilter from "@/filters/currency.filter";
 import "./registerServiceWorker";
 import "materialize-css/dist/js/materialize.min.js";
 import firebase from "firebase/app";
@@ -16,6 +18,8 @@ Vue.config.productionTip = false;
 Vue.use(Vuelidate)
 Vue.filter('date', dateFilter);
 Vue.filter('time', timeFilter);
+Vue.filter('currency', currencyFilter);
+Vue.component('Loader', Loader);
 
 firebase.initializeApp({
   apiKey: "AIzaSyCO0qS-2XuQBF9COQzpJcsNLpe106Hk1PI",

@@ -20,7 +20,7 @@ export default {
         const uid = await dispatch('getUid');
 
         await firebase.database().ref(`/users/${uid}/info`).set({
-          bill: 0,
+          bill: 10000,
           name: name
         });
       } catch (e) {
@@ -33,8 +33,9 @@ export default {
       const user = firebase.auth().currentUser;
       return user ? user.uid : null;
     },
-    async logout() {
+    async logout({commit}) {
       await firebase.auth().signOut();
+      commit('clearInfo');
       M.toast({html: 'You are logged out'});
     }
   }
