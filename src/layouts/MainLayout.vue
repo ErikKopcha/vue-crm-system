@@ -28,7 +28,7 @@ import Sidebar from "@/components/app/Sidebar";
 export default {
   name: "MainLayout",
   data: () => ({
-    isOpen: localStorage.getItem('sidebar') === 'true' ? true : false,
+    isOpen: localStorage.getItem('sidebar') === 'true',
     loading: true,
   }),
   components: {
